@@ -1,0 +1,40 @@
+
+<form [formGroup]="ownerForm" class="normal-form" (ngSubmit)="onSubmit()">
+    <mat-grid-list cols="2" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Names*" formControlName="names" id="names">
+                    <mat-hint align="end">Not more then 20 characters long.</mat-hint>
+                    <mat-error *ngIf="hasError('names', 'required')">Names is required</mat-error>
+                    <mat-error *ngIf="hasError('names', 'maxlength')">You have more than 60 characters</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Username*" formControlName="username" id="username">
+                    <mat-hint align="end">Not more then 20 characters long.</mat-hint>
+                    <mat-error *ngIf="hasError('username', 'required')">Username is required</mat-error>
+                    <mat-error *ngIf="hasError('username', 'maxlength')">You have more than 60 characters</mat-error>
+                </mat-form-field>
+
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="controles-container">
+                <mat-form-field>
+                    <mat-select formControlName="roleId" placeholder="Roles">
+                        <mat-option>None</mat-option>
+                        <ng-container *ngFor="let role of roles">
+                            <mat-option value="{{role.roleid}}">{{role.name}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+               
+                <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit">Submit</button>
+                    <button mat-raised-button color="warn" type="button" (click)="onClear()">Clear</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

@@ -1,0 +1,47 @@
+<mat-card>
+    <mat-card-content>
+        <!-- [formGroup]="form" -->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <img src="assets/logo/wk-logo.jpg"/>
+            <h2>Log In</h2>
+            <mat-error *ngIf="loginInvalid">
+                The username and password were not recognised
+            </mat-error>
+            <!-- <mat-form-field class="full-width-input">
+                <input matInput placeholder="Email" name="username" formControlName="username" required>
+                <mat-error>
+                    Please provide a valid email address
+                </mat-error>
+            </mat-form-field> -->
+            <mat-form-field class="full-width-input">
+                <!-- <input matInput type="password" placeholder="Password" formControlName="password" required> -->
+                <input matInput type="text" placeholder="Username" formControlName="username" required>
+                <mat-error>
+                    Please provide a valid username
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+                <!-- <input matInput type="password" placeholder="Password" formControlName="password" required> -->
+                <input matInput type="password" placeholder="Password" formControlName="password" required>
+                <mat-error>
+                    Please provide a valid password
+                </mat-error>
+            </mat-form-field>
+            <mat-error>
+                {{errorMessage}}
+            </mat-error>
+            <button mat-raised-button color="primary" type="submit">Login</button>
+
+
+        </form>
+    </mat-card-content>
+</mat-card>
+
+
+<!-- <mat-card>
+	<h4><i>mat-form-field</i> with <i>mat-error</i></h4>
+	<mat-form-field>
+		<input matInput placeholder="Email" [(ngModel)]="username" required>
+		<mat-error>Email Required!</mat-error>
+	</mat-form-field>
+</mat-card> -->
