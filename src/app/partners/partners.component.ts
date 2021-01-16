@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { UserService } from '../services/users/user.service';
 import { PeriodicElement } from '../users/users.component';
 
@@ -14,6 +15,7 @@ export class PartnersComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   dataSource: MatTableDataSource<PeriodicElement>;
   isNewUser: boolean;
+  partners: any[] = [];
 
 
   // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'type', 'action'];
@@ -22,7 +24,7 @@ export class PartnersComponent implements OnInit {
   newPeriod: PeriodicElement;
 
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.loadUsers('none');
@@ -35,10 +37,12 @@ export class PartnersComponent implements OnInit {
         data => {
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.paginator = this.paginator;
+          this.partners = data;
           // this.table.renderRows();
-          if (value === 'add' || value === 'delete') {
-            window.location.reload();
-          }
+          // if (value === 'add' || value === 'delete') {
+          //   window.location.reload();
+          // }
+          this.isNewUser = true;
         },
         error => { console.log(error + ''); }
       );
@@ -72,6 +76,12 @@ export class PartnersComponent implements OnInit {
     //   console.log('The dialog was closed');
     //   this.animal = result;
     // });
+  }
+
+
+
+  newPartner() {
+    this.router.navigate(['dashboard/user-partner-edit']);
   }
 
 }

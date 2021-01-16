@@ -25,6 +25,7 @@ export class UsersComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   dataSource: MatTableDataSource<PeriodicElement>;
   isNewUser: boolean;
+  users: any[] = [];
 
 
 
@@ -40,16 +41,22 @@ export class UsersComponent implements OnInit {
     this.loadUsers('none');
   }
 
+  backToUserList(event) {
+    this.loadUsers('add');
+  }
+
   loadUsers(value) {
     this.userService.getUsers()
       .subscribe(
         data => {
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.paginator = this.paginator;
+          this.users = data;
           // this.table.renderRows();
           if (value === 'add' || value === 'delete') {
-            window.location.reload();
+            // window.location.reload();
           }
+          this.isNewUser = false;
         },
         error => { console.log(error + ''); }
       );

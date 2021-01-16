@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8" [hidden]="isNewUser">
+<!-- <div class="mat-elevation-z8" [hidden]="isNewUser">
     <div class="example-header">
         <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -6,40 +6,25 @@
         <button mat-raised-button color="primary" (click)="newEmployee()">+ New Partner</button>
     </div>
     <table #table mat-table [dataSource]="dataSource">
-
-        <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-        <!-- Position Column -->
-        <!-- <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-        </ng-container> -->
-
-        <!-- Name Column -->
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
-        <!-- Weight Column -->
         <ng-container matColumnDef="location">
             <th mat-header-cell *matHeaderCellDef> Location </th>
             <td mat-cell *matCellDef="let element"> {{element.location}} </td>
         </ng-container>
-         <!-- Weight Column -->
          <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef> Email </th>
             <td mat-cell *matCellDef="let element"> {{element.email}} </td>
         </ng-container>
 
-         <!-- Weight Column -->
          <ng-container matColumnDef="phone">
             <th mat-header-cell *matHeaderCellDef> Phone </th>
             <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
         </ng-container>
 
-         <!-- Weight Column -->
          <ng-container matColumnDef="momoCode">
             <th mat-header-cell *matHeaderCellDef> Momo Code </th>
             <td mat-cell *matCellDef="let element"> {{element.momoCode}} </td>
@@ -49,14 +34,8 @@
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element">
-                <!-- <button mat-mini-fab color="accent" type="button" (click)="deleteProduct(element)" aria-label="Example icon button with a delete icon">
-                    <mat-icon>delete</mat-icon>
-                </button>&nbsp;&nbsp;
-                <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon">
-                    <mat-icon>edit</mat-icon>
-                </button> -->
+             
                 <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <!--  -->
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
@@ -64,14 +43,6 @@
                         <mat-icon>add_shopping_cart</mat-icon>
                         <span>Sold</span>
                     </button>
-                    <!-- <button mat-menu-item disabled>
-                        <mat-icon>announcement</mat-icon>
-                        <span>Issues</span>
-                    </button>
-                    <button mat-menu-item>
-                        <mat-icon>notifications_off</mat-icon>
-                        <span>DIsable alerts</span>
-                    </button> -->
                 </mat-menu>
             </td>
         </ng-container>
@@ -86,10 +57,57 @@
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 50]" showFirstLastButtons></mat-paginator>
 </div>
-<!-- <button type="button" (click)="addItem()">Add</button> -->
 
 
 
 <div *ngIf="isNewUser">
     <app-partner-edit (backToTitle)="backToProduct($event)"></app-partner-edit>
+</div> -->
+
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 placement">
+                <button class="btn btn-primary btn-block " (click)="newPartner()">New</button>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Partners</h4>
+                        <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <!-- <th>ID</th> -->
+                                    <th>Name</th>
+                                    <th>Location</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Momo Code</th>
+                                    <th>Created On</th>
+                                    <!-- <th>Salary </th> -->
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of partners">
+                                        <td>{{user.name}}</td>
+                                        <td>{{user.location}}</td>
+                                        <td>{{user.email}}</td>
+                                        <td>{{user.phone}}</td>
+                                        <td>{{user.momoCode}}</td>
+                                        <td>{{user.createdOnDate}}</td>
+
+                                        <!-- <td class="text-primary"> $36,738 </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,5 +1,5 @@
 import { Location, DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/users/user.service';
 
@@ -11,6 +11,7 @@ import { UserService } from '../services/users/user.service';
 export class UserEditComponent implements OnInit {
 
   public ownerForm: FormGroup;
+  @Output() backToUser = new EventEmitter<boolean>();
   roles: any[];
   genders = [
     { id: 3, value: 'Male' },
@@ -92,10 +93,7 @@ export class UserEditComponent implements OnInit {
   }
 
 
-  onClear() {
-    this.ownerForm.reset();
-    this.initializeFormGroup();
-  }
+ 
 
 
   initializeFormGroup() {
@@ -103,18 +101,14 @@ export class UserEditComponent implements OnInit {
       names: '',
       roleId: '',
       username: '',
-      // address: '',
-      // email: '',
-      // dob: '',
-      // roleid: '',
-      // genderid: '',
-      // isPermanent: false,
     });
   }
 
 
   onSubmit() {
     if (this.ownerForm.invalid) {
+      console.log('something wrong');
+      console.log(this.ownerForm.value);
       return;
     } else {
       // this.ownerForm.controls['dob'].setValue(this.datepipe.transform(this.ownerForm.get('dob').value, 'yyyy-MM-dd'));
@@ -122,27 +116,32 @@ export class UserEditComponent implements OnInit {
       this.userService.createUser(this.ownerForm.value)
         .subscribe(
           data => {
-            window.location.reload();
-            console.log('well done'); },
+            // window.location.reload();
+            console.log('well done');
+            this.closeForm();
+          },
           error => { console.log(error + ''); }
         );
     }
     // console.log(this.datepipe.transform(this.ownerForm.get('dob').value, 'yyyy-MM-dd'));
 
   }
+
+  onClear() {
+    this.ownerForm.reset();
+    this.initializeFormGroup();
+    this.closeForm();
+  }
+
+  closeForm() {
+    this.backToUser.emit(false);
+  }
 }
 
 
+
+
 export interface OwnerForCreation {
-  // firstname: string;
-  // lastname: string;
-  // phone: string;
-  // dob: Date;
-  // address: string;
-  // email: string;
-  // genderid: string;
-  // roleid: string;
-  // isPermanent: boolean;
 
   username: string;
   names: string;

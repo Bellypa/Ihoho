@@ -62,8 +62,10 @@ export class LoginComponent implements OnInit {
           .subscribe(
             data => {
               // localStorage.setItem('token', JSON.stringify(data.token));
-              localStorage.setItem('token', JSON.stringify(data));
-              this.router.navigate(['/shop-gallery']);
+              // localStorage.setItem('token', JSON.stringify(data));
+              this.authService.setToken(data.token);
+              this.authService.setLoginUser(JSON.stringify(data), data);
+              this.router.navigate(['/welcome']);
             },
             error => {
               this.errorMessage = error.error.status === 401 ? 'Username or password is incorrect' : error.error.status;

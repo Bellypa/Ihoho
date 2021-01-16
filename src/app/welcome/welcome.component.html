@@ -26,7 +26,7 @@
 </mat-toolbar>
 
 <mat-tab-group>
-    <mat-tab label="Gallery">
+    <!-- <mat-tab label="Gallery">
         <div>
             <mat-card *ngFor="let spaceScreen of spaceScreens; let i = index">
                 <img mat-card-image src="{{ spaceScreen.img }}">
@@ -37,17 +37,17 @@
                     <button mat-button (click)="likeMe(i)">
                         <i class="material-icons mat-18" [class.red-color]="spaceScreen.liked == '1'">favorite</i> LIKE
                     </button>
-                    <!-- <button mat-button (click)="deleteMe(i)"> -->
+                    <button mat-button (click)="deleteMe(i)">
                     <button mat-button (click)="deleteMe(spaceScreen.id)">
                         <i class="material-icons mat-18">delete</i> DELETE
                     </button>
                 </mat-card-actions>
             </mat-card>
         </div>
-        <!-- <div *ngIf="spaceScreens.length === 0">
+        <div *ngIf="spaceScreens.length === 0">
             <h2>No Items..</h2>
-        </div> -->
-    </mat-tab>
+        </div>
+    </mat-tab> -->
     <mat-tab label="User Management">
         <div id="page-padding">
             <h1>User Management</h1>
@@ -67,7 +67,7 @@
                         User Management
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <app-users></app-users>
+                <!-- <app-users></app-users> -->
             </mat-expansion-panel>
             <!-- client management -->
             <mat-expansion-panel>
@@ -91,7 +91,7 @@
                         Partner Management
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <app-partners></app-partners>
+                <!-- <app-partners></app-partners> -->
             </mat-expansion-panel>
             <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"> -->
             <!-- <mat-expansion-panel>
@@ -109,8 +109,21 @@
     </mat-tab>
     <mat-tab label="Setting">
         <div id="page-products">
-            <!-- <h1>Settings</h1> -->
+            <h1>Settings</h1>
             <!-- <app-products></app-products> -->
         </div>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Partner Service
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                        User Management
+                    </mat-panel-description> -->
+                </mat-expansion-panel-header>
+                <app-partner-services></app-partner-services>
+            </mat-expansion-panel>
+        </mat-accordion>
     </mat-tab>
 </mat-tab-group>

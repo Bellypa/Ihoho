@@ -28,17 +28,6 @@ export class AuthService {
   ) { }
 
 
-  getToken() {
-    if (localStorage.getItem(this.config.JWT_Token)) {
-      // const token = this.aESEncryptDecryptService.decrypt(localStorage.getItem(this.config.JWT_Token));
-      // return token;
-    } else {
-      const token = null;
-      return token;
-    }
-  }
-
-
 
   isLogedIn() {
     if (localStorage.getItem('token')) {
@@ -49,18 +38,37 @@ export class AuthService {
 
 
 
-  login(credentials: any): Observable<any> {
+  login(credentials): Observable<any> {
     const body = JSON.stringify(credentials);
-    return this.http.post<any>(this.postUrl + 'users/login', body, this.httpOptions)
-      .pipe(map(this.extractData),
+    return this.http.post(this.config.apiUrl + 'users/login', body, this.httpOptions)
+      .pipe(map((data: any) => {
+        return data;
+      }),
         catchError(this.handleErrors));
   }
 
 
-  private extractData(res: Response) {
-    const body = JSON.parse(JSON.stringify(res || null));
-    return body || {};
+  setToken(token: string) {
+    localStorage.setItem(this.config.JWT_Token, token);
   }
+
+  getToken() {
+    return localStorage.getItem(this.config.JWT_Token);
+  }
+
+  setLoginUser(userData: string, response) {
+    localStorage.setItem(this.config.Session_User, userData);
+  }
+
+  setUserSession(Persmission: any) {
+    localStorage.setItem(this.config.valide_User, Persmission);
+  }
+
+  getUserSession() {
+    return JSON.parse(localStorage.getItem(this.config.valide_User));
+  }
+
+
 
 
 

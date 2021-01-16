@@ -1,5 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AppConfig } from 'src/app/app.config';
 import { AuthService } from '../auth.service';
 
@@ -31,7 +33,7 @@ export class UserService {
     private http: HttpClient,
     private configuration: AppConfig,
     private authService: AuthService,
-  ) { 
+  ) {
     this.url = this.configuration.apiUrl;
   }
 
@@ -42,7 +44,12 @@ export class UserService {
   }
 
   createUser(user: any) {
-    return this.http.post<any[]>(this.url + 'users', this.httpOptions);
+    const body = JSON.stringify(user);
+    return this.http.post<any[]>(this.url + 'users', body, this.httpOptions)
+      .pipe(map((data: any) => {
+        return data;
+      }),
+        catchError(this.handleErrors));
   }
   getClients() {
     return this.http.get<any[]>(this.url + 'businessClients', this.httpOptions);
@@ -55,4 +62,48 @@ export class UserService {
   getRoles() {
     return this.http.get<any[]>(this.url + 'roles', this.httpOptions);
   }
+
+
+  getBusinessService() {
+    return this.http.get<any[]>(this.url + 'businessServices', this.httpOptions);
+  }
+
+
+  getParterService() {
+    return this.http.get<any[]>(this.url + 'roles', this.httpOptions);
+  }
+
+
+  createParterService(user: any) {
+    const body = JSON.stringify(user);
+    return this.http.post<any[]>(this.url + 'partnerServices', body, this.httpOptions)
+      .pipe(map((data: any) => {
+        return data;
+      }),
+        catchError(this.handleErrors));
+  }
+
+  private handleErrors(error: HttpErrorResponse): Observable<any> {
+    console.log(error);
+    if (error.status > 0) {
+      if (error.status > 0) {
+        if (error.status === 401) {
+          // return throwError('Unauthorized');
+          return throwError(error.error);
+        } else if (error.status === 500) {
+          return throwError('Please try again');
+        } else if (error.status === 302) {
+          return throwError('Already have an open session.');
+        } else if (error.status === 404) {
+          return throwError(error.error);
+        } else {
+          console.log(error);
+          return throwError(error.error || 'Please try again');
+        }
+      }
+    } else {
+      return throwError('Check Connection and Try again');
+    }
+  }
+
 }

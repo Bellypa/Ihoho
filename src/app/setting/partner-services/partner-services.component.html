@@ -1,0 +1,78 @@
+<div class="mat-elevation-z8" [hidden]="isNewUser">
+    <div class="example-header">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="newEmployee()">+ New Parter Service</button>
+    </div>
+    <table #table mat-table [dataSource]="dataSource">
+
+        <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <!-- <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container> -->
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="names">
+            <th mat-header-cell *matHeaderCellDef> Names </th>
+            <td mat-cell *matCellDef="let element"> {{element.names}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef> Role </th>
+            <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element">
+                <!-- <button mat-mini-fab color="accent" type="button" (click)="deleteProduct(element)" aria-label="Example icon button with a delete icon">
+                    <mat-icon>delete</mat-icon>
+                </button>&nbsp;&nbsp;
+                <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon">
+                    <mat-icon>edit</mat-icon>
+                </button> -->
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <!--  -->
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="openDialog(element)">
+                        <mat-icon>add_shopping_cart</mat-icon>
+                        <span>Sold</span>
+                    </button>
+                    <!-- <button mat-menu-item disabled>
+                        <mat-icon>announcement</mat-icon>
+                        <span>Issues</span>
+                    </button>
+                    <button mat-menu-item>
+                        <mat-icon>notifications_off</mat-icon>
+                        <span>DIsable alerts</span>
+                    </button> -->
+                </mat-menu>
+            </td>
+        </ng-container>
+
+
+
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 50]" showFirstLastButtons></mat-paginator>
+</div>
+<!-- <button type="button" (click)="addItem()">Add</button> -->
+
+
+
+<div *ngIf="isNewUser">
+    <!-- <app-user-edit (backToUser)="backToUserList($event)"></app-user-edit> -->
+</div>
