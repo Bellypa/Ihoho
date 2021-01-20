@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { UserService } from '../services/users/user.service';
-import { PeriodicElement } from '../users/users.component';
+import { UserService } from '../../services/users/user.service';
+import { PeriodicElement } from '../../users/users.component';
 
 @Component({
   selector: 'app-partners',
@@ -16,6 +16,7 @@ export class PartnersComponent implements OnInit {
   dataSource: MatTableDataSource<PeriodicElement>;
   isNewUser: boolean;
   partners: any[] = [];
+  searchPartner: string;
 
 
   // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'type', 'action'];
@@ -82,6 +83,11 @@ export class PartnersComponent implements OnInit {
 
   newPartner() {
     this.router.navigate(['dashboard/user-partner-edit']);
+  }
+
+
+  addService(partner) {
+    this.router.navigate(['/dashboard/services', partner.id]);
   }
 
 }

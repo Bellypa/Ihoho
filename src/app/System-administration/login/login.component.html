@@ -30,7 +30,8 @@
             <mat-error>
                 {{errorMessage}}
             </mat-error>
-            <button mat-raised-button color="primary" type="submit">Login</button>
+            <button mat-raised-button color="primary" *ngIf="!isConnecting" type="submit">Login</button>
+            <button mat-raised-button color="primary" *ngIf="isConnecting" type="button">Connecting..</button>
 
 
         </form>

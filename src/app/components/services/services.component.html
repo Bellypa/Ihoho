@@ -1,0 +1,76 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="table-header">
+                <div class="search_area">
+                    <form class="navbar-form">
+                        <div class="input-group no-border">
+                            <input type="text" name="searchPartnerService" class="form-control" [(ngModel)]="searchPartnerService" placeholder="Search...">
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="placement">
+                    <button class="btn btn-primary" (click)="newPartnerService()">New</button>
+                </div>
+            </div>
+            <!-- <div class="table-header">
+                <div class="search_area">
+
+                </div>
+                <div class="col-md-4 placement">
+                    <button class="btn btn-primary btn-block " (click)="newPartnerService()">New</button>
+                </div>
+            </div> -->
+           
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Partner Service</h4>
+                        <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>ID</th>
+                                    <th>Service</th>
+                                    <th>Price</th>
+                                    <th>Seats</th>
+                                    <th>Min Duration</th>
+                                    <!-- <th>Created On</th> -->
+                                    <th>Action </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of partnerServices |genericfilter:searchPartnerService">
+                                        <td>{{user.id}}</td>
+                                        <td>{{user.service}}</td>
+                                        <td>{{user.price}}</td>
+                                        <td>{{user.seats}}</td>
+                                        <td>{{user.minDuration}}</td>
+                                        <!-- <td>{{user.createdOnDate | date}}</td> -->
+                                        <td class="action paytablebtns maxwidth_action">
+                                            <div class="tableaction_btn">
+                                                <a class="action_button">More..</a>
+                                                <ul class="actionlist_cont">
+                                                    <li>
+                                                        <a class="actionitem"
+                                                            (click)="editPartnerService(user)">Edit</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <!-- <td class="text-primary"> $36,738 </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

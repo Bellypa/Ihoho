@@ -51,15 +51,10 @@ import { AppConfig } from './app.config';
 import * as $ from 'jquery';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ClientsComponent } from './clients/clients.component';
-import { PartnersComponent } from './partners/partners.component';
-import { UsersComponent } from './users/users.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
 import { ClientEditComponent } from './client-edit/client-edit.component';
-import { PartnerEditComponent } from './partner-edit/partner-edit.component';
 import { PartnerServicesComponent } from './setting/partner-services/partner-services.component';
 import { PartnerServiceEditComponent } from './setting/partner-service-edit/partner-service-edit.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-
 
 
 @NgModule({

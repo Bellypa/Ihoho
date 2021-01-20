@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +11,12 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  public loginInvalid: boolean;
   private formSubmitAttempt: boolean;
   private returnUrl: string;
   username: string;
   password: string;
   errorMessage: string;
+  isConnecting: boolean;
 
 
   constructor(
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
-  ) { this.errorMessage = ''; }
+  ) { this.errorMessage = ''; this.isConnecting = false; }
 
   // ngOnInit() {
   // }
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
 
 
   async onSubmit() {
-    this.loginInvalid = false;
+    this.isConnecting = true;
     this.formSubmitAttempt = false;
     if (this.form.valid) {
       try {
@@ -61,22 +62,21 @@ export class LoginComponent implements OnInit {
         await (await this.authService.login(data))
           .subscribe(
             data => {
-              // localStorage.setItem('token', JSON.stringify(data.token));
-              // localStorage.setItem('token', JSON.stringify(data));
               this.authService.setToken(data.token);
-              this.authService.setLoginUser(JSON.stringify(data), data);
-              this.router.navigate(['/welcome']);
+              this.router.navigate(['/dashboard']);
             },
             error => {
               this.errorMessage = error.error.status === 401 ? 'Username or password is incorrect' : error.error.status;
               console.log(error.error);
+              this.isConnecting = false;
             }
           );
       } catch (err) {
-        this.loginInvalid = true;
+        this.isConnecting = false;
       }
     } else {
       this.formSubmitAttempt = true;
+      this.isConnecting = false;
     }
   }
 

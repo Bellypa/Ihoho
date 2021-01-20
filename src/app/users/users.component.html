@@ -1,6 +1,26 @@
-<div class="content">
+<div class="content" [hidden]="isNewUser">
     <div class="container-fluid">
+
         <div class="row">
+            <div class="table-header">
+                <div class="search_area">
+                    <form class="navbar-form">
+                        <div class="input-group no-border">
+                          <input type="text" name="searchUser" [(ngModel)]="searchUser" class="form-control" placeholder="Search...">
+                          <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                            <i class="material-icons">search</i>
+                            <div class="ripple-container"></div>
+                          </button>
+                        </div>
+                      </form>
+                </div>
+                <div class="placement">
+                    <button class="btn btn-primary" (click)="newEmployee()">New</button>
+                </div>
+            </div>
+            <!-- <div class="col-md-4 placement">
+                <button class="btn btn-primary btn-block " (click)="newEmployee()">New</button>
+            </div> -->
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
@@ -18,10 +38,10 @@
                                     <!-- <th>Salary </th> -->
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let user of users">
+                                    <tr *ngFor="let user of users |genericfilter:searchUser">
                                         <td>{{user.names}}</td>
                                         <td>{{user.role}}</td>
-                                        <td>{{user.createdOnDate}}</td>
+                                        <td>{{user.createdOnDate | date}}</td>
 
                                         <!-- <td class="text-primary"> $36,738 </td> -->
                                     </tr>
@@ -169,3 +189,7 @@
         </div>
     </div>
 </div>
+
+
+
+<app-user-edit *ngIf="isNewUser" (backToUser)="closeCreateUser($event)"></app-user-edit>

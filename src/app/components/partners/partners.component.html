@@ -69,9 +69,25 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4 placement">
-                <button class="btn btn-primary btn-block " (click)="newPartner()">New</button>
+            <div class="table-header">
+                <div class="search_area">
+                    <form class="navbar-form">
+                        <div class="input-group no-border">
+                            <input type="text" value="" class="form-control" name="searchPartner" [(ngModel)]="searchPartner" placeholder="Search...">
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="placement">
+                    <button class="btn btn-primary" (click)="newPartner()">New</button>
+                </div>
             </div>
+            <!-- <div class="col-md-4 placement">
+                <button class="btn btn-primary btn-block " (click)="newPartner()">New</button>
+            </div> -->
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
@@ -88,18 +104,27 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Momo Code</th>
-                                    <th>Created On</th>
-                                    <!-- <th>Salary </th> -->
+                                    <!-- <th>Created On</th> -->
+                                    <th>Action </th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let user of partners">
+                                    <tr *ngFor="let user of partners |genericfilter:searchPartner">
                                         <td>{{user.name}}</td>
                                         <td>{{user.location}}</td>
                                         <td>{{user.email}}</td>
                                         <td>{{user.phone}}</td>
                                         <td>{{user.momoCode}}</td>
-                                        <td>{{user.createdOnDate}}</td>
-
+                                        <!-- <td>{{user.createdOnDate | date}}</td> -->
+                                        <td class="action paytablebtns maxwidth_action">
+                                            <div class="tableaction_btn">
+                                                <a class="action_button">More..</a>
+                                                <ul class="actionlist_cont">
+                                                    <li>
+                                                        <a class="actionitem" (click)="addService(user)">Service</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                         <!-- <td class="text-primary"> $36,738 </td> -->
                                     </tr>
                                 </tbody>

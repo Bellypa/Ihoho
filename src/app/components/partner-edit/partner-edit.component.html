@@ -1,0 +1,128 @@
+<div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">Create Partner</h4>
+              <!-- <p class="card-category">Complete your profile</p> -->
+            </div>
+            <div class="card-body">
+              <form #userform="ngForm" (ngSubmit)="onSubmit(userform)" autocomplete="off" novalidate>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Name</label>
+                      <input type="text" class="form-control" name="name" [(ngModel)]="partner.name">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Phone</label>
+                      <input type="text" class="form-control" name="phone" [(ngModel)]="partner.phone">
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Email address</label>
+                      <input type="email" class="form-control" name="email" [(ngModel)]="partner.email">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Momo Code</label>
+                      <input type="text" class="form-control"  name="momoCode" [(ngModel)]="partner.momoCode">
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Last Name</label>
+                      <input type="text" class="form-control" name="name">
+                    </div>
+                  </div> -->
+                </div>
+                <!-- <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Fist Name</label>
+                        <select type="text" class="form-control" name="name">
+                            <option>Test 1</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Last Name</label>
+                        <input type="text" class="form-control" name="name">
+                      </div>
+                    </div>
+                  </div> -->
+                <!-- <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Adress</label>
+                      <input type="text" class="form-control" name="name">
+                    </div>
+                  </div>
+                </div> -->
+                <!-- <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">City</label>
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Country</label>
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Postal Code</label>
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div> -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Location</label>
+                      <div class="form-group">
+                        <label class="bmd-label-floating"></label>
+                        <textarea class="form-control" rows="3" name="location" [(ngModel)]="partner.location"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" (click)="closePartner()" class="btn btn-primary pull-right">Cancel</button>
+                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                <div class="clearfix"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-profile">
+            <div class="card-avatar">
+              <a href="javascript:;">
+                <img class="img" src="../assets/img/faces/marc.jpg" />
+              </a>
+            </div>
+            <!-- <div class="card-body">
+              <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+              <h4 class="card-title">Alec Thompson</h4>
+              <p class="card-description">
+                Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+              </p>
+              <a href="javascript:;" class="btn btn-primary btn-round">Follow</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

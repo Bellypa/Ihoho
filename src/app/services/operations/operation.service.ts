@@ -4,14 +4,11 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AppConfig } from 'src/app/app.config';
 import { AuthService } from '../auth.service';
-import * as jwt_decode from 'jwt-decode';
-
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-
+export class OperationService {
   url: string;
   httpOptions = {
     headers: new HttpHeaders(
@@ -28,9 +25,6 @@ export class UserService {
 
     )
   };
-
-
-
   constructor(
     private http: HttpClient,
     private configuration: AppConfig,
@@ -39,65 +33,40 @@ export class UserService {
     this.url = this.configuration.apiUrl;
   }
 
-
-
-  getUsers() {
-    return this.http.get<any[]>(this.url + 'users', this.httpOptions);
-  }
-
-  createUser(user: any) {
-    const body = JSON.stringify(user);
-    return this.http.post<any[]>(this.url + 'users', body, this.httpOptions)
-      .pipe(map((data: any) => {
-        return data;
-      }),
-        catchError(this.handleErrors));
-  }
-
-  createPartner(data: any) {
-    const user = jwt_decode(localStorage.getItem(this.configuration.JWT_Token));
-    data.userId = user.UserId;
-    const body = JSON.stringify(data);
-    return this.http.post<any>(this.url + 'partners', body, this.httpOptions)
-      .pipe(map((data: any) => {
-        return data;
-      }),
-        catchError(this.handleErrors));
-  }
-
-
-
-  getClients() {
-    return this.http.get<any[]>(this.url + 'businessClients', this.httpOptions);
-  }
-  getPartners() {
-    return this.http.get<any[]>(this.url + 'partners', this.httpOptions);
-  }
-
-
-  getRoles() {
-    return this.http.get<any[]>(this.url + 'roles', this.httpOptions);
-  }
-
-
-  getBusinessService() {
+  getBusinessServices() {
     return this.http.get<any[]>(this.url + 'businessServices', this.httpOptions);
   }
 
 
-  getParterService() {
-    return this.http.get<any[]>(this.url + 'roles', this.httpOptions);
+
+
+  getPartnerServiceById(id) {
+    return this.http.get<any>(this.url + 'partnerServices/' + id, this.httpOptions);
   }
 
+  getPartnerService(partnerId) {
+    return this.http.get<any[]>(this.url + 'partnerServices/partner/' + partnerId, this.httpOptions);
+  }
 
-  createParterService(user: any) {
-    const body = JSON.stringify(user);
-    return this.http.post<any[]>(this.url + 'partnerServices', body, this.httpOptions)
+  createPartnerService(partnerService: any) {
+    const body = JSON.stringify(partnerService);
+    return this.http.post<any>(this.url + 'partnerServices', body, this.httpOptions)
       .pipe(map((data: any) => {
         return data;
       }),
         catchError(this.handleErrors));
   }
+
+
+  createPartnerServiceImage(partnerService: any) {
+    // const body = JSON.stringify(partnerService);
+    return this.http.put<any>(this.url + 'partnerServices/uploadServiceImage', partnerService, this.httpOptions)
+      .pipe(map((data: any) => {
+        return data;
+      }),
+        catchError(this.handleErrors));
+  }
+
 
   private handleErrors(error: HttpErrorResponse): Observable<any> {
     console.log(error);
@@ -121,5 +90,7 @@ export class UserService {
       return throwError('Check Connection and Try again');
     }
   }
+
+
 
 }
