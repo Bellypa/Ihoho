@@ -4,7 +4,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title">Update Partner Service</h4>
+                        <h4 class="card-title">Create Partner Service</h4>
                         <!-- <p class="card-category">Complete your profile</p> -->
                     </div>
                     <div class="card-body">
@@ -13,6 +13,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <!-- <label class="bmd-label-floating">Choose Service</label> -->
                                         <select class="form-control" id="businessServiceId" name="businessServiceId"
                                             [(ngModel)]="partnerService.businessServiceId">
                                             <option value="">Select Service</option>
@@ -23,6 +24,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="bmd-label-floating">Price</label>
                                         <input type="text" id="price" class="form-control" name="price"
                                             [(ngModel)]="partnerService.price">
                                     </div>
@@ -32,45 +34,24 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="bmd-label-floating">Seats</label>
                                         <input type="text" id="seats" class="form-control" name="seats"
                                             [(ngModel)]="partnerService.seats">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="bmd-label-floating">Minimum Duration</label>
                                         <input type="text" id="minDuration" class="form-control" name="minDuration"
                                             [(ngModel)]="partnerService.minDuration">
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right">Update</button>
-                            <button type="button" (click)="closeServiceEdit()" class="btn btn-danger pull-right">Cancel</button>
+                            <button type="submit" class="btn btn-primary pull-right">Save</button>
+                            <button type="button" (click)="closeForm()"
+                                class="btn btn-danger pull-right">Cancel</button>
                             <div class="clearfix"></div>
                         </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-profile">
-                    <div class="card-avatar">
-                        <a href="javascript:;">
-                            <!-- <img class="img" src="../assets/img/faces/marc.jpg" /> -->
-                            <img class="img" [src]="'data:image/jpg;base64,'+partnerService?.imageData">
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                        <h4 class="card-title">Alec Thompson</h4>
-                        <!-- <p class="card-description">
-                            Don't be scared of the truth because we need to restart the human foundation in truth And I
-                            love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                        </p> -->
-                        <input *ngIf="isChangingImageService" #fileUpl class="file-uploader" type="file" id="btnUpload"
-                            value="Upload" (change)="fileChange1($event)" />
-                        <a *ngIf="isChangingImageService" href="javascript:;" class="btn btn-primary btn-round"
-                            (click)="savePartnerServiceImage()">Submit</a>
-                        <a *ngIf="!isChangingImageService" href="javascript:;" class="btn btn-primary btn-round"
-                            (click)="changeToUploadImage()">Change Image</a>
                     </div>
                 </div>
             </div>

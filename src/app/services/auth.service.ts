@@ -100,7 +100,11 @@ export class AuthService {
     if (error.status > 0) {
       if (error.status > 0) {
         if (error.status === 401) {
-          return throwError('Unauthorized');
+          if (error) {
+            return throwError(error.error);
+          } else {
+            return throwError('Unauthorized');
+          }
         } else if (error.status === 500) {
           return throwError('Contact your administrator');
         } else if (error.status === 302) {

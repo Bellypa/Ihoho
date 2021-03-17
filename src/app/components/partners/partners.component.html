@@ -98,7 +98,7 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
-                                    <!-- <th>ID</th> -->
+                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Location</th>
                                     <th>Email</th>
@@ -109,6 +109,7 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let user of partners |genericfilter:searchPartner">
+                                        <td>{{user.id}}</td>
                                         <td>{{user.name}}</td>
                                         <td>{{user.location}}</td>
                                         <td>{{user.email}}</td>

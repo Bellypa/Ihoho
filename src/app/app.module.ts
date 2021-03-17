@@ -55,6 +55,8 @@ import { ClientEditComponent } from './client-edit/client-edit.component';
 import { PartnerServicesComponent } from './setting/partner-services/partner-services.component';
 import { PartnerServiceEditComponent } from './setting/partner-service-edit/partner-service-edit.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { FrontPageComponent } from './components/to_clients/front-page/front-page.component';
+import { ServiceCreateComponent } from './components/service-create/service-create.component';
 
 
 @NgModule({
@@ -74,6 +76,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     PartnerServicesComponent,
     PartnerServiceEditComponent,
     UserProfileComponent,
+    FrontPageComponent,
   ],
   imports: [
     BrowserModule,

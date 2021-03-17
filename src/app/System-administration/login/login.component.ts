@@ -11,12 +11,12 @@ import * as jwt_decode from 'jwt-decode';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  private formSubmitAttempt: boolean;
   private returnUrl: string;
   username: string;
   password: string;
   errorMessage: string;
   isConnecting: boolean;
+  loginInvalid: boolean;
 
 
   constructor(
@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
 
   async onSubmit() {
     this.isConnecting = true;
-    this.formSubmitAttempt = false;
     if (this.form.valid) {
       try {
         const username = this.form.get('username').value;
@@ -66,16 +65,17 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/dashboard']);
             },
             error => {
-              this.errorMessage = error.error.status === 401 ? 'Username or password is incorrect' : error.error.status;
-              console.log(error.error);
               this.isConnecting = false;
+              // this.errorMessage = error.error.status === 401 ? 'Username or password is incorrect' : error.error.status;
+              console.log(error.error);
+              this.errorMessage = error + '';
+              
             }
           );
       } catch (err) {
         this.isConnecting = false;
       }
     } else {
-      this.formSubmitAttempt = true;
       this.isConnecting = false;
     }
   }

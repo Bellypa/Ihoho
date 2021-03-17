@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OperationService } from 'src/app/services/operations/operation.service';
-
+import * as jwt_decode from 'jwt-decode';
+import { AppConfig } from 'src/app/app.config';
 @Component({
   selector: 'app-services',
   templateUrl: './services.component.html',
@@ -14,10 +15,14 @@ export class ServicesComponent implements OnInit {
   constructor(
     private operationService: OperationService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private configuration: AppConfig
   ) {
     this.route.params.subscribe(params => {
       this.partnerId = params.partnerId;
+      if (jwt_decode(localStorage.getItem(this.configuration.JWT_Token)).Role === '1') {
+        localStorage.setItem('PartnerId', this.partnerId);
+      }
       this.loadPartnerService(this.partnerId);
     })
   }
@@ -37,8 +42,16 @@ export class ServicesComponent implements OnInit {
   }
 
 
+
+  
+
   newPartnerService() {
-    this.router.navigate(['/dashboard/service-edit', this.partnerId]);
+    if (jwt_decode(localStorage.getItem(this.configuration.JWT_Token)).Role === '1') {
+      this.router.navigate(['/dashboard/service-create', localStorage.getItem('PartnerId')]);
+    } else {
+      this.router.navigate(['/dashboard/service-create', jwt_decode(localStorage.getItem(this.configuration.JWT_Token)).PartnerId])
+    }
+
   }
 
 

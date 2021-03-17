@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OperationService } from 'src/app/services/operations/operation.service';
+import * as jwt_decode from 'jwt-decode';
+import { AppConfig } from 'src/app/app.config';
+
 
 @Component({
   selector: 'app-service-edit',
@@ -12,8 +15,7 @@ export class ServiceEditComponent implements OnInit {
   partnerId: string;
   partnerService: any;
   bussnessServices: any[];
-  headerName: string;
-  isUpdate: boolean;
+  // isUpdate: boolean;
   formData: FormData;
   partnerServiceId: string;
   isChangingImageService: boolean;
@@ -22,20 +24,13 @@ export class ServiceEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private operationService: OperationService,
-    private router: Router) {
+    private router: Router,
+    private configuration: AppConfig) {
 
     this.partnerService = {};
     this.route.params.subscribe(params => {
       this.partnerId = params.partnerId;
-      if (+this.partnerId !== 0) {
-        this.isUpdate = true;
-        this.headerName = 'Update Partner Service'
-        this.loadPartnerServiceById(this.partnerId);
-      } else {
-        this.isUpdate = false;
-        this.headerName = 'Create Partner Service';
-      }
-      // this.loadPartnerService(this.partnerId);
+      this.loadPartnerServiceById(this.partnerId);
     })
   }
 
@@ -71,23 +66,24 @@ export class ServiceEditComponent implements OnInit {
     if (form.invalid) {
       return;
     } else {
-      if (this.isUpdate) {
-        console.log('Update data');
-      } else {
-        this.partnerService.partnerId = +this.partnerId;
-        this.operationService.createPartnerService(this.partnerService)
-          .subscribe(
-            data => { this.router.navigate(['/dashboard/services', this.partnerId]); },
-            error => { }
-          )
-      }
-
+      this.partnerService.partnerId = jwt_decode(localStorage.getItem(this.configuration.JWT_Token)).Role === '1' ? +localStorage.getItem('PartnerId') :
+        jwt_decode(localStorage.getItem(this.configuration.JWT_Token)).PartnerId;
+      console.log(this.partnerService);
+      this.operationService.updatePartnerService(this.partnerService, this.partnerServiceId)
+        .subscribe(
+          data => { this.closeServiceEdit(); },
+          error => { }
+        )
     }
   }
 
 
   closeServiceEdit() {
-    this.router.navigate(['/dashboard/services', this.partnerId]);
+    if (jwt_decode(localStorage.getItem(this.configuration.JWT_Token)).Role === '1') {
+      this.router.navigate(['/dashboard/services', localStorage.getItem('PartnerId')]);
+    } else {
+      this.router.navigate(['/dashboard/services', jwt_decode(localStorage.getItem(this.configuration.JWT_Token)).PartnerId])
+    }
   }
 
 

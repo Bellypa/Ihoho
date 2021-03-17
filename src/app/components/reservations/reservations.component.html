@@ -1,1 +1,87 @@
-<p>reservations works!</p>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="table-header">
+                <div class="search_area">
+                    <form class="navbar-form">
+                        <div class="input-group no-border">
+                            <input type="text" name="searchReservation" class="form-control"
+                                [(ngModel)]="searchReservation" placeholder="Search...">
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="placement">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <!-- <label class="bmd-label-floating">Filter</label> -->
+                            <select type="text" class="form-control" name="name" (change)="filterSessions($event.target.value)">
+                                <option value="0">None</option>
+                                <option value="true">Served</option>
+                                <option value="false">Not Served</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="table-header">
+                <div class="search_area">
+
+                </div>
+                <div class="col-md-4 placement">
+                    <button class="btn btn-primary btn-block " (click)="newPartnerService()">New</button>
+                </div>
+            </div> -->
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Reservation</h4>
+                        <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>ID</th>
+                                    <th>Client</th>
+                                    <th>Service</th>
+                                    <th>Partner</th>
+                                    <th>Reservation</th>
+                                    <th>Status</th>
+                                    <th>Action </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of viewReservations |genericfilter:searchReservation">
+                                        <td>{{user.id}}</td>
+                                        <td>{{user.client}}</td>
+                                        <td>{{user.service}}</td>
+                                        <td>{{user.partner}}</td>
+                                        <td>{{user.reservationDate | date}}</td>
+                                        <td>{{user.isServed ? 'Served': 'Not Served'}}</td>
+                                        <td class="action paytablebtns maxwidth_action">
+                                            <div class="tableaction_btn">
+                                                <a class="action_button">More..</a>
+                                                <ul class="actionlist_cont">
+                                                    <li *ngIf="!user.isServed">
+                                                        <a class="actionitem" (click)="serveClient(user)">Served</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <!-- <td class="text-primary"> $36,738 </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

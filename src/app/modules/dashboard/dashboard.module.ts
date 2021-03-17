@@ -12,6 +12,7 @@ import { ServicesComponent } from 'src/app/components/services/services.componen
 import { ServiceEditComponent } from 'src/app/components/service-edit/service-edit.component';
 import { ReservationsComponent } from 'src/app/components/reservations/reservations.component';
 import { FilterPipe } from 'src/app/pipes/search.pipe';
+import { ServiceCreateComponent } from 'src/app/components/service-create/service-create.component';
 
 
 
@@ -26,6 +27,7 @@ import { FilterPipe } from 'src/app/pipes/search.pipe';
     ServicesComponent,
     ServiceEditComponent,
     ReservationsComponent,
+    ServiceCreateComponent,
     FilterPipe],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ import { FilterPipe } from 'src/app/pipes/search.pipe';
           { path: 'user-partner-edit', component: PartnerEditComponent },
           { path: 'services/:partnerId', component: ServicesComponent },
           { path: 'service-edit/:partnerId', component: ServiceEditComponent },
+          { path: 'service-create/:partenerId', component: ServiceCreateComponent },
           { path: 'reservations', component: ReservationsComponent },
           //   { path: 'profile', component: UserProfileComponent },
           //   { path: 'Dashboard', component: DashboardHomeComponent, },
